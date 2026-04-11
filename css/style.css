@@ -535,15 +535,14 @@ h2 {
 }
 
 .seat-scroll {
-  overflow-x: auto;
-  padding-bottom: 4px;
+  overflow: visible;
 }
 
 .seat-grid {
   --seat-cols: 5;
   display: grid;
-  grid-template-columns: repeat(var(--seat-cols), minmax(80px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(var(--seat-cols), 1fr);
+  gap: 6px;
   position: relative;
   z-index: 1;
 }
@@ -595,10 +594,12 @@ h2 {
 
 .seat-position {
   position: absolute;
-  top: 5px;
-  left: 7px;
-  font-size: 0.62rem;
-  color: rgba(141, 155, 181, 0.6);
+  top: 4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.58rem;
+  color: rgba(141, 155, 181, 0.5);
   font-variant-numeric: tabular-nums;
 }
 
@@ -848,18 +849,30 @@ h2 {
   }
 
   .seat-grid {
-    grid-template-columns: repeat(var(--seat-cols), minmax(64px, 1fr));
+    gap: 5px;
+  }
+
+  .seat {
+    padding: 12px 4px;
+  }
+
+  .seat-reading {
+    font-size: 0.54rem;
+  }
+
+  .seat-name {
+    font-size: 0.82rem;
   }
 }
 
 @media (max-width: 480px) {
   .app-shell {
-    padding-inline: 10px;
+    padding-inline: 8px;
   }
 
   .hero-card,
   .section-card {
-    padding: 16px;
+    padding: 14px;
   }
 
   .schedule-grid {
@@ -872,12 +885,29 @@ h2 {
   }
 
   .seat-grid {
-    grid-template-columns: repeat(var(--seat-cols), minmax(56px, 1fr));
-    gap: 6px;
+    gap: 4px;
   }
 
   .seat {
-    padding: 10px 6px;
+    padding: 10px 3px;
+    border-radius: 8px;
+  }
+
+  .seat-position {
+    font-size: 0.5rem;
+    top: 2px;
+  }
+
+  .seat-reading {
+    font-size: 0.48rem;
+  }
+
+  .seat-name {
+    font-size: 0.75rem;
+  }
+
+  .seat-empty-label {
+    font-size: 0.6rem;
   }
 
   .modal-overlay {
