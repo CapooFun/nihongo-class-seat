@@ -52,6 +52,11 @@ select {
 
 button {
   cursor: pointer;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+  margin: 0;
 }
 
 /* ─── Aurora animated background ─── */
