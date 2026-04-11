@@ -365,8 +365,8 @@
             data-modal-key="${escapeHtml(studentKey)}"
             aria-label="${escapeHtml(student.name)} の情報を見る"
           >
-            <span class="seat-position">${escapeHtml(seatLabel)}</span>
             <span class="seat-content">
+              <span class="seat-position">${escapeHtml(seatLabel)}</span>
               <span class="seat-reading">${escapeHtml(student.nameReading)}</span>
               <span class="seat-name">${escapeHtml(student.name)}</span>
             </span>
