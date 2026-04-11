@@ -46,6 +46,8 @@ input,
 textarea,
 select {
   font: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 button {
@@ -395,12 +397,12 @@ h2 {
 }
 
 .cal-nav-month {
-  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
 .calendar-widget.is-expanded .cal-nav-month {
-  opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
