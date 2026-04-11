@@ -685,6 +685,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(var(--seat-cols), 1fr);
   gap: 6px;
+  padding-bottom: 4px;
   position: relative;
   z-index: 1;
 }
