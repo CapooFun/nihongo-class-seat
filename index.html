@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初級1A ─ スケジュール＆クラスメート</title>
+  <meta
+    name="description"
+    content="東京ノア日本語学校 初級1Aクラスのスケジュール＆クラスメート。今日の授業、先生、クラスメートをすぐ確認できます。"
+  >
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+  </div>
+  <div class="app-shell">
+    <header class="page-header">
+      <div class="hero-card card fade-in-up">
+        <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
+        <div class="hero-topline">
+          <span class="glass-chip">東京ノア日本語学校</span>
+          <span class="glass-chip glass-chip-soft">初級1Aクラス</span>
+        </div>
+        <p class="eyebrow">TODAY'S OVERVIEW</p>
+        <h1>スケジュール＆クラスメート</h1>
+        <p class="hero-description">今日の授業、先生、クラスメートをすぐ確認できるクラスボードです。</p>
+        <div id="today-card" class="today-card" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="card section-card schedule-panel fade-in-up" aria-labelledby="schedule-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WEEKLY SCHEDULE</p>
+            <h2 id="schedule-title">今週の時間割</h2>
+          </div>
+          <p id="week-label" class="section-meta"></p>
+        </div>
+        <div class="schedule-scroll">
+          <div id="schedule-grid" class="schedule-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="card section-card seat-panel fade-in-up" aria-labelledby="seatmap-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CLASSMATES</p>
+            <h2 id="seatmap-title">クラスメート＆座席表</h2>
+          </div>
+          <p class="section-meta">先生名や座席をタップすると詳細を確認できます</p>
+        </div>
+
+        <div class="seat-stage">
+          <div class="board-sign">黒板 / 教卓</div>
+        </div>
+
+        <div class="seat-scroll">
+          <div id="seat-grid" class="seat-grid" aria-label="クラス座席表"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p>Capoo が作成</p>
+    </footer>
+  </div>
+
+  <div id="modal-root"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
