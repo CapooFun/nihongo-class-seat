@@ -90,7 +90,7 @@ const STUDENTS = {
   },
   youKokugen: {
     name: "姚皓严",
-    nameReading: "You Kokugen さん",
+    nameReading: "You Kougen さん",
     realName: "姚皓严",
     nationality: "🇨🇳 中国",
     hobby: "未填写",
