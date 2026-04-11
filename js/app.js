@@ -1,5 +1,5 @@
 (function () {
-  const PERIOD_TEXT = "9:00-12:30";
+  const PERIOD_TEXT = "13:00-16:30";
   const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
   const calWidget = document.getElementById("calendar-widget");
   const calTitle = document.getElementById("cal-title");

@@ -181,6 +181,7 @@ button {
 /* ─── Seat panel ─── */
 
 .seat-panel {
+  padding-bottom: 32px;
   background:
     linear-gradient(170deg, rgba(16, 24, 48, 0.82), rgba(8, 14, 26, 0.76)),
     rgba(12, 20, 36, 0.6);
@@ -685,7 +686,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(var(--seat-cols), 1fr);
   gap: 6px;
-  padding-bottom: 4px;
   position: relative;
   z-index: 1;
 }
