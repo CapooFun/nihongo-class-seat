@@ -1,7 +1,13 @@
 (function () {
   const PERIOD_TEXT = "9:00-12:30";
   const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
-  const todayCard = document.getElementById("today-card");
+  const calWidget = document.getElementById("calendar-widget");
+  const calTitle = document.getElementById("cal-title");
+  const calGridWrap = document.getElementById("cal-grid-wrap");
+  const calGrid = document.getElementById("cal-grid");
+  const calPrev = document.getElementById("cal-prev");
+  const calNext = document.getElementById("cal-next");
+  const calToggle = document.getElementById("cal-toggle");
   const weekLabel = document.getElementById("week-label");
   const scheduleGrid = document.getElementById("schedule-grid");
   const seatGrid = document.getElementById("seat-grid");
@@ -9,6 +15,9 @@
   const currentSeatLayout = SEAT_MAP.layout;
 
   let activeModal = null;
+  let calYear;
+  let calMonth;
+  let calExpanded = false;
 
   function pad(value) {
     return String(value).padStart(2, "0");
@@ -203,7 +212,7 @@
                 <div class="profile-reading">${escapeHtml(profile.nameReading)}</div>
               </div>
             </div>
-            ${teacherItems ? `<div class="profile-grid">${teacherItems}</div>` : '<p class="profile-hint">この先生の補足情報はまだ未入力です。</p>'}
+            ${teacherItems.trim() ? `<div class="profile-grid">${teacherItems}</div>` : ""}
           </div>
         </div>
       `;
@@ -226,52 +235,112 @@
           </div>
           <div class="profile-grid">
             ${createInfoItem("中国語名", profile.realName)}
-            ${createInfoItem("JLPT", profile.jlptLevel)}
-            ${createInfoItem("趣味", profile.hobby)}
             ${createInfoItem("出身地", profile.hometown || "未入力")}
+            ${createInfoItem("連絡先", profile.contact || "未入力")}
+            ${createInfoItem("趣味", profile.hobby)}
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderToday(referenceDate, weekSchedule) {
-    const classInfo = getClassInfo(referenceDate);
-    const holidayName = getHolidayName(referenceDate);
-    const todayTeacher = classInfo.teacherKey ? TEACHERS[classInfo.teacherKey] : null;
-    const statusClass = classInfo.isOff ? "off" : "on";
-    const statusText = classInfo.isOff ? "休み" : "授業日";
-    const extraText = holidayName
-      ? ` · ${holidayName}`
-      : referenceDate.getDay() === 0 || referenceDate.getDay() === 6
-        ? " · 週末"
-        : ` · ${PERIOD_TEXT}`;
+  function renderCalendar(year, month, today) {
+    calTitle.textContent = `${year}年${month + 1}月`;
 
-    todayCard.innerHTML = `
-      <p class="today-date">${escapeHtml(formatJapaneseDate(referenceDate))}</p>
-      <div class="today-meta">
-        <span class="status-pill ${statusClass}">
-          <span aria-hidden="true">${classInfo.isOff ? "🔴" : "🟢"}</span>
-          ${statusText}${extraText}
-        </span>
-      </div>
-      <div class="today-teacher">
-        <span>今日の先生</span>
-        ${
-          todayTeacher
-            ? `<button class="text-button" type="button" data-modal-type="teacher" data-modal-key="${escapeHtml(classInfo.teacherKey)}">${escapeHtml(todayTeacher.name)}</button>`
-            : `<span>${escapeHtml(classInfo.reason || "休み")}</span>`
-        }
-      </div>
-      <div class="today-teacher">
-        <span>今週</span>
-        <span>${escapeHtml(weekSchedule.weekLabel)}</span>
-      </div>
-    `;
+    const firstDay = new Date(year, month, 1);
+    let startDow = firstDay.getDay();
+    if (startDow === 0) startDow = 7;
+    const offset = startDow - 1;
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrev = new Date(year, month, 0).getDate();
+
+    const cells = [];
+    const totalCells = Math.ceil((offset + daysInMonth) / 7) * 7;
+    let todayRowIndex = 0;
+
+    for (let i = 0; i < totalCells; i++) {
+      let dayNum, dateObj, isOtherMonth;
+
+      if (i < offset) {
+        dayNum = daysInPrev - offset + 1 + i;
+        dateObj = new Date(year, month - 1, dayNum);
+        isOtherMonth = true;
+      } else if (i >= offset + daysInMonth) {
+        dayNum = i - offset - daysInMonth + 1;
+        dateObj = new Date(year, month + 1, dayNum);
+        isOtherMonth = true;
+      } else {
+        dayNum = i - offset + 1;
+        dateObj = new Date(year, month, dayNum);
+        isOtherMonth = false;
+      }
+
+      const dow = dateObj.getDay();
+      const isWeekend = dow === 0 || dow === 6;
+      const holidayName = getHolidayName(dateObj);
+      const isToday = isSameDay(dateObj, today);
+      const isClassday = !isWeekend && !holidayName;
+
+      if (isToday) {
+        todayRowIndex = Math.floor(i / 7);
+      }
+
+      const classes = ["cal-cell"];
+      if (isOtherMonth) classes.push("other-month");
+      if (isWeekend) classes.push("is-weekend");
+      if (holidayName) classes.push("is-holiday");
+      if (isToday) classes.push("is-today");
+      if (isClassday && !isOtherMonth) classes.push("is-classday");
+
+      const title = holidayName && !isOtherMonth ? holidayName : "";
+
+      cells.push(`<span class="${classes.join(" ")}"${title ? ` title="${escapeHtml(title)}"` : ""}>${dayNum}</span>`);
+    }
+
+    calGrid.innerHTML = cells.join("");
+    applyCalendarCollapse(todayRowIndex);
+  }
+
+  function applyCalendarCollapse(todayRowIndex) {
+    requestAnimationFrame(() => {
+      const firstCell = calGrid.querySelector(".cal-cell");
+      if (!firstCell) return;
+
+      const cellHeight = firstCell.offsetHeight;
+      const gridStyle = getComputedStyle(calGrid);
+      const gap = parseFloat(gridStyle.rowGap) || 4;
+      const padBottom = parseFloat(gridStyle.paddingBottom) || 0;
+      const rowHeight = cellHeight + gap;
+      const totalRows = Math.ceil(calGrid.children.length / 7);
+      const fullHeight = totalRows * rowHeight - gap + padBottom;
+
+      if (calExpanded) {
+        calGridWrap.style.maxHeight = `${fullHeight}px`;
+        calGrid.style.transform = "";
+      } else {
+        calGridWrap.style.maxHeight = `${rowHeight + padBottom}px`;
+        calGrid.style.transform = `translateY(-${todayRowIndex * rowHeight}px)`;
+      }
+    });
+  }
+
+  function toggleCalendar(today) {
+    calExpanded = !calExpanded;
+    calWidget.classList.toggle("is-expanded", calExpanded);
+    renderCalendar(calYear, calMonth, today);
+  }
+
+  function navigateCalendar(direction, today) {
+    calMonth += direction;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar(calYear, calMonth, today);
   }
 
   function renderSchedule(schedule) {
     weekLabel.textContent = schedule.weekLabel;
+    weekLabel.style.display = "inline";
 
     scheduleGrid.innerHTML = schedule.days
       .map((day, index) => {
@@ -301,8 +370,8 @@
                   : "休み"
               }
             </div>
-            <div class="schedule-period">${escapeHtml(day.period || "授業なし")}</div>
-            <div class="schedule-note">${escapeHtml(day.reason || "通常授業")}</div>
+            <div class="schedule-period">${escapeHtml(day.period || "")}</div>
+            ${day.reason ? `<div class="schedule-note">${escapeHtml(day.reason)}</div>` : ""}
           </article>
         `;
       })
@@ -333,8 +402,11 @@
               style="--delay:${delay}s"
               aria-label="空席 ${escapeHtml(seatLabel)}"
             >
-              <span class="seat-position">${escapeHtml(seatLabel)}</span>
-              <span class="seat-empty-label">空席</span>
+              <span class="seat-content">
+                <span class="seat-position">${escapeHtml(seatLabel)}</span>
+                <span class="seat-mid"><span class="seat-empty-label">空席</span></span>
+                <span class="seat-name"></span>
+              </span>
             </button>
           `;
         }
@@ -350,8 +422,11 @@
               style="--delay:${delay}s"
               aria-label="空席 ${escapeHtml(seatLabel)}"
             >
-              <span class="seat-position">${escapeHtml(seatLabel)}</span>
-              <span class="seat-empty-label">空席</span>
+              <span class="seat-content">
+                <span class="seat-position">${escapeHtml(seatLabel)}</span>
+                <span class="seat-mid"><span class="seat-empty-label">空席</span></span>
+                <span class="seat-name"></span>
+              </span>
             </button>
           `;
         }
@@ -367,7 +442,14 @@
           >
             <span class="seat-content">
               <span class="seat-position">${escapeHtml(seatLabel)}</span>
-              <span class="seat-reading">${escapeHtml(student.nameReading)}</span>
+              <span class="seat-mid">${(() => {
+                const reading = student.nameReading || "";
+                const match = reading.match(/^(.+?)\s*(さん)$/);
+                if (match) {
+                  return `<span class="seat-reading">${escapeHtml(match[1])}</span><span class="seat-honorific">${escapeHtml(match[2])}</span>`;
+                }
+                return `<span class="seat-reading">${escapeHtml(reading)}</span>`;
+              })()}</span>
               <span class="seat-name">${escapeHtml(student.name)}</span>
             </span>
           </button>
@@ -392,7 +474,14 @@
     const today = new Date();
     const weekSchedule = buildWeekSchedule(today);
 
-    renderToday(today, weekSchedule);
+    calYear = today.getFullYear();
+    calMonth = today.getMonth();
+    renderCalendar(calYear, calMonth, today);
+
+    calToggle.addEventListener("click", () => toggleCalendar(today));
+    calPrev.addEventListener("click", () => navigateCalendar(-1, today));
+    calNext.addEventListener("click", () => navigateCalendar(1, today));
+
     renderSchedule(weekSchedule);
     renderSeatMap();
     bindEvents();

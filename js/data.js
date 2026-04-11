@@ -143,7 +143,9 @@ const STUDENTS = {
     nameReading: "Kou U さん",
     realName: "黄宇",
     nationality: "🇨🇳 中国",
-    hobby: "未填写",
+    hometown: "四川",
+    contact: "WeChat: Capoo-fun",
+    hobby: "ゲーム・読書・ゲーム制作",
     message: "よろしくお願いします！",
     jlptLevel: "待补充",
     avatar: `${FLUENT_3D}/1f424.webp`

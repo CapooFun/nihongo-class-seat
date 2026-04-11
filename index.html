@@ -6,11 +6,11 @@
   <title>初級1A ─ スケジュール＆クラスメート</title>
   <meta
     name="description"
-    content="東京ノア日本語学校 初級1Aクラスのスケジュール＆クラスメート。今日の授業、先生、クラスメートをすぐ確認できます。"
+    content="東京ノア日本語学校 初級1Aクラス ─ 授業スケジュール・先生・クラスメート座席表"
   >
   <!-- Open Graph for WeChat / SNS sharing -->
   <meta property="og:title" content="初級1A ─ スケジュール＆クラスメート">
-  <meta property="og:description" content="東京ノア日本語学校 初級1Aクラスのスケジュール＆クラスメート">
+  <meta property="og:description" content="東京ノア日本語学校 初級1Aクラス ─ 授業スケジュール・先生・クラスメート座席表">
   <meta property="og:image" content="https://capoofun.github.io/nihongo-class-seat/img/og-share.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -34,8 +34,24 @@
         </div>
         <p class="eyebrow">TODAY'S OVERVIEW</p>
         <h1>スケジュール＆クラスメート</h1>
-        <p class="hero-description">今日の授業、先生、クラスメートをすぐ確認できるクラスボードです。</p>
-        <div id="today-card" class="today-card" aria-live="polite"></div>
+        <p class="hero-description">授業・先生・クラスメートをすぐ確認。</p>
+
+        <div class="calendar-widget" id="calendar-widget" aria-live="polite">
+          <div class="cal-header">
+            <button class="cal-nav cal-nav-month" id="cal-prev" type="button" aria-label="前月">‹</button>
+            <button class="cal-title-btn" id="cal-toggle" type="button">
+              <span class="cal-title" id="cal-title"></span>
+              <span class="cal-toggle-icon" id="cal-toggle-icon"></span>
+            </button>
+            <button class="cal-nav cal-nav-month" id="cal-next" type="button" aria-label="次月">›</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span class="cal-weekend">土</span><span class="cal-weekend">日</span>
+          </div>
+          <div class="cal-grid-wrap" id="cal-grid-wrap">
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -44,9 +60,8 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">WEEKLY SCHEDULE</p>
-            <h2 id="schedule-title">今週の時間割</h2>
+            <h2 id="schedule-title">今週の時間割 <span id="week-label" class="schedule-week-range"></span></h2>
           </div>
-          <p id="week-label" class="section-meta"></p>
         </div>
         <div class="schedule-scroll">
           <div id="schedule-grid" class="schedule-grid" aria-live="polite"></div>
@@ -59,7 +74,7 @@
             <p class="eyebrow">CLASSMATES</p>
             <h2 id="seatmap-title">クラスメート＆座席表</h2>
           </div>
-          <p class="section-meta">先生名や座席をタップすると詳細を確認できます</p>
+          <p class="section-meta">タップで詳細表示</p>
         </div>
 
         <div class="seat-stage">
