@@ -349,6 +349,92 @@
   margin-bottom: 24px;
 }
 
+.act-signup-official-box {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 199, 255, 0.22);
+  background: rgba(124, 199, 255, 0.06);
+}
+
+.act-signup-lead {
+  margin: 0 0 12px;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.act-signup-lead strong {
+  color: var(--text-primary);
+}
+
+.act-signup-cta-wrap {
+  margin: 0 0 10px;
+}
+
+.act-signup-google-cta {
+  display: inline-flex;
+}
+
+.act-signup-pending {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgba(255, 200, 120, 0.95);
+}
+
+.act-signup-pending code {
+  font-size: 0.78em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.act-signup-roster-details {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.act-signup-roster-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.act-signup-roster-ul {
+  margin: 10px 0 0;
+  padding-left: 1.2rem;
+  line-height: 1.65;
+}
+
+.act-signup-roster-note {
+  margin: 10px 0 0;
+  font-size: 0.76rem;
+  opacity: 0.9;
+}
+
+.act-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid rgba(124, 199, 255, 0.35);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.act-btn-secondary:hover {
+  color: var(--accent);
+  border-color: rgba(124, 199, 255, 0.55);
+  background: rgba(124, 199, 255, 0.08);
+}
+
 .act-signup-list {
   display: flex;
   flex-wrap: wrap;
@@ -470,6 +556,13 @@
   margin: 0 0 6px;
   font-size: 1.1rem;
   font-weight: 700;
+}
+
+.signup-modal-hint {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .signup-modal-sub {

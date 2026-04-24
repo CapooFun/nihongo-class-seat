@@ -374,7 +374,19 @@ const ACTIVITIES = [
       { time: "19:30", place: "高円寺駅 解散（予定）", note: "お疲れさまでした！打ち上げ希望者は駅前で🍻", image: "" }
     ],
     gallery: [],
-    signupFormUrl: ""
+    signupFormUrl: "",
+    signupGoogleFormRosterLines: [
+      "4-1 姚皓严（You Kougen）",
+      "4-2 黄宇（Kou U）",
+      "4-3 袁存凯（En Songai）",
+      "4-4 夏玉娟（Ka Gyokuken）",
+      "3-2 唐玉涓（Tou Gyokuken）",
+      "3-3 尹寒璐（In Kanro）",
+      "3-5 陈卓（Chin Taku）",
+      "3-6 张书剑（Chou Shoken）",
+      "3-7 余健平（You Kenhei）",
+      "1-2 喜宇哲（Ki Utetsu）"
+    ]
   }
 ];
 

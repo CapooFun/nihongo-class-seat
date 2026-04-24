@@ -52,6 +52,28 @@
     return dateStr === dateEndStr ? fmt(start) : `${fmt(start)} 〜 ${fmt(end)}`;
   }
 
+  function renderSignupOfficialLead(act) {
+    const lines = Array.isArray(act.signupGoogleFormRosterLines) ? act.signupGoogleFormRosterLines : [];
+    const rosterHtml =
+      lines.length > 0
+        ? `<ul class="act-signup-roster-ul">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>`
+        : "";
+    const googleBtn = act.signupFormUrl
+      ? `<p class="act-signup-cta-wrap"><a class="act-btn-primary act-signup-google-cta" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームで参加を登録</a></p>`
+      : `<p class="act-signup-pending">Google フォームの「送信用リンク」を <code>js/data.js</code> の該当イベント <code>signupFormUrl</code> に貼ると、上に正式申込ボタンが表示されます。</p>`;
+    return `
+      <div class="act-signup-official-box">
+        <p class="act-signup-lead">クラス全体の参加人数は <strong>Google フォーム</strong> で集計します（みんな同じ回答を共有）。このページの顔アイコン一覧は<strong>このブラウザだけ</strong>に保存され、人数の正確な集計には使えません。</p>
+        ${googleBtn}
+        ${
+          lines.length > 0
+            ? `<details class="act-signup-roster-details"><summary>声かけ済み・参加予定（${lines.length}名・座席）</summary>${rosterHtml}<p class="act-signup-roster-note">フォームの選択肢にコピーする場合は、プロジェクト内 <code>CREATE_GOOGLE_FORM.txt</code> も参照してください。</p></details>`
+            : ""
+        }
+      </div>
+    `;
+  }
+
   function renderSignupList(act, signups, container) {
     if (signups.length === 0) {
       container.innerHTML = `<p class="act-signup-empty">まだ参加者がいません。最初に申し込もう！</p>`;
@@ -86,18 +108,18 @@
 
     if (alreadySigned) {
       actionsEl.innerHTML = `
-        <span class="act-btn-signed">✓ 申し込み済み</span>
-        ${act.signupFormUrl ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームでも確認</a>` : ""}
+        <span class="act-btn-signed">✓ このブラウザにはメモ済み</span>
+        ${act.signupFormUrl ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームを開く</a>` : ""}
       `;
       return;
     }
 
     const formLink = act.signupFormUrl
-      ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームで申し込む</a>`
+      ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームを開く</a>`
       : "";
 
     actionsEl.innerHTML = `
-      <button class="act-btn-primary" id="signup-btn">🙋 参加申し込み</button>
+      <button class="act-btn-secondary" type="button" id="signup-btn">📌 この端末だけにメモ（任意・参考）</button>
       ${formLink}
     `;
 
@@ -122,6 +144,7 @@
       <div class="signup-modal-card">
         <p class="signup-modal-title">参加申し込み</p>
         <p class="signup-modal-sub">${esc(act.title)} に参加します</p>
+        <p class="signup-modal-hint">※ ここはこの端末にだけ保存されます。クラス全体の正式な参加登録は Google フォームを使ってください。</p>
         <label class="signup-select-label" for="signup-select">あなたの名前を選んでください</label>
         <select class="signup-select" id="signup-select">
           <option value="">── 選んでください ──</option>
@@ -293,6 +316,7 @@
       <!-- Signup -->
       <div class="act-section act-signup-section fade-in-up" style="--delay:0.25s">
         <p class="act-section-title">SIGNUP ─ 参加申し込み</p>
+        ${renderSignupOfficialLead(act)}
         <div id="signup-list" class="act-signup-list"></div>
         <div id="signup-actions" class="act-signup-actions"></div>
       </div>
