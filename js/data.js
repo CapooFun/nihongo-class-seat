@@ -269,17 +269,93 @@ const STUDENTS = {
     message: "よろしくお願いします！",
     jlptLevel: "教师助教",
     avatar: `${FLUENT_3D}/1f338.webp`
+  },
+  kouLi: {
+    name: "黄鹂",
+    nameReading: "Huang Li さん",
+    realName: "黄鹂",
+    nationality: "🇨🇳 中国",
+    hobby: "未填写",
+    message: "よろしくお願いします！",
+    jlptLevel: "待补充",
+    avatar: `${FLUENT_3D}/1f426.webp`
+  },
+  teiShinyou: {
+    name: "丁昕瑶",
+    nameReading: "Ding Xinyao さん",
+    realName: "丁昕瑶",
+    nationality: "🇨🇳 中国",
+    hobby: "未填写",
+    message: "よろしくお願いします！",
+    jlptLevel: "待补充",
+    avatar: `${FLUENT_3D}/1f3a8.webp`
   }
 };
 
+const ACTIVITIES = [
+  {
+    id: "okutama-2026-04-30",
+    title: "奥多摩ハイキング",
+    titleReading: "おくたまはいきんぐ",
+    subtitle: "黄金週間前夜・新緑の渓谷と湖を歩こう！",
+    coverImage: "https://res.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1513938752/tokyo/Tokyo2368_3",
+    coverGradient: "linear-gradient(135deg, #1a3a2a 0%, #0d2233 50%, #1a2a3a 100%)",
+    coverEmoji: "",
+    date: "2026-04-30",
+    dateEnd: "2026-04-30",
+    location: "東京都西多摩郡奥多摩町",
+    meetingPoint: "高円寺駅（JR中央線）改札前",
+    mapEmbed: "https://maps.google.com/maps?q=%E5%A5%A5%E5%A4%9A%E6%91%A9%E9%A7%85%2C%E6%9D%B1%E4%BA%AC%E9%83%BD%E8%A5%BF%E5%A4%9A%E6%91%A9%E9%83%A1%E5%A5%A5%E5%A4%9A%E6%91%A9%E7%94%BA&output=embed&hl=ja",
+    fee: "交通費 約 ¥1,500（往復）+ 昼食・温泉は各自",
+    capacity: 25,
+    tags: ["自然", "ハイキング", "日帰り", "新緑"],
+    description: "4月30日（木）、いよいよ明日からGW！その前夜に東京都内とは思えない大自然・奥多摩へ出発。\n4月末の奥多摩は新緑がもっとも美しい季節。鳩ノ巣渓谷の吊り橋と清流、奥多摩湖のパノラマ絶景、帰りに温泉で締める最高の一日を。\n高円寺から約2時間、クラスのみんなで思い出を作ろう！",
+    route: {
+      mapImage: "https://www.okutama.gr.jp/site/map/image/hikawa.png",
+      mapCaption: "出典：奥多摩観光協会 公式ハイキングマップ（氷川エリア）",
+      highlights: [
+        {
+          name: "鳩ノ巣渓谷 吊り橋",
+          image: "https://www.ohtama.or.jp/wp-content/uploads/2020/03/sightseeing_pic097_01.jpg",
+          note: "渓谷を渡る絶景スポット。高さ約30mの吊り橋から清流を見下ろす"
+        },
+        {
+          name: "鳩ノ巣渓谷 清流",
+          image: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Hatonosu_Gorge_20240518.jpg",
+          note: "多摩川上流の清流と巨岩。エメラルドグリーンの流れが美しい"
+        },
+        {
+          name: "奥多摩湖・麦山浮橋",
+          image: "https://res.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1513935204/tokyo/Tokyo2367_1",
+          note: "全長320mの浮き橋を渡る体験。足元の揺れがクセになる"
+        }
+      ]
+    },
+    itinerary: [
+      { time: "08:00", place: "高円寺駅 集合・出発", note: "JR中央線 改札前に集合。立川行きで出発！", image: "" },
+      { time: "08:35", place: "立川駅 乗り換え", note: "青梅線ホームへ移動。鳩ノ巣行き（青梅線）に乗車", image: "" },
+      { time: "09:55", place: "鳩ノ巣駅 下車", note: "ハイキングの出発点。奥多摩駅の2つ手前で下車", image: "" },
+      { time: "10:10", place: "鳩ノ巣渓谷 入口", note: "遊歩道スタート。整備された渓谷沿いの道を歩く", image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Hatonosu_Valley_%40_Otama_Walking_Trail_%2810756155063%29.jpg" },
+      { time: "10:40", place: "鳩ノ巣吊り橋", note: "高さ約30m！渓谷を一望する絶景スポット。写真スポット必至", image: "https://upload.wikimedia.org/wikipedia/commons/d/db/Tama_river_%40_Hatonosu_Valley_%40_Otama_Walking_Trail_%2810755941846%29.jpg" },
+      { time: "11:30", place: "白丸湖・数馬の切り通し", note: "神秘的な紺碧の湖と江戸時代の石切り遺構", image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Otama_Walking_Trail_%40_From_Hatonosu_to_Mount_Mitake_%2810756156363%29.jpg" },
+      { time: "12:30", place: "昼食タイム（奥多摩駅周辺）", note: "「玉川屋」の奥多摩そば or 持参弁当で渓谷ランチ", image: "" },
+      { time: "14:00", place: "奥多摩湖・麦山浮橋", note: "バスで10分。空汽油桶で支えられた全長320mの浮き橋を渡る。足元が揺れる不思議な体験！", image: "https://res.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1513935204/tokyo/Tokyo2367_1" },
+      { time: "15:30", place: "もえぎの湯（希望者）", note: "奥多摩駅徒歩10分。渓谷を望む露天風呂の天然温泉（¥900）", image: "https://www.okutamas.co.jp/moegi/wp-content/themes/okutama/dist/images/top/guide/guide-img2.jpg" },
+      { time: "17:30", place: "奥多摩駅 出発・帰路", note: "青梅線→中央線で帰路へ", image: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Okutama_Station_Gate.jpg" },
+      { time: "19:30", place: "高円寺駅 解散（予定）", note: "お疲れさまでした！打ち上げ希望者は駅前で🍻", image: "" }
+    ],
+    gallery: [],
+    signupFormUrl: ""
+  }
+];
+
+/* 4 列：左から列ごとの席数 6, 7, 7, 7。グリッド上は 7 行で、第 1 列の最下行は隙間用（黒板側揃いの座席 6 席） */
 const SEAT_MAP = {
-  rows: 5,
-  cols: 5,
+  colHeights: [6, 7, 7, 7],
   layout: [
-    ["roSekishou", "touGyokuken", "chinGyou", "giHouen", "youKokugen"],
-    [EMPTY_SEAT, "shuuRyousyou", "shuFukukei", "souKyou", "kouU"],
-    [NO_SEAT, "youItukin", "inKanro", "kaGyokuken", "enSongai"],
-    [NO_SEAT, "kiUtetsu", "tsutsumiEri", "mouSeki", "chinTaku"],
-    [NO_SEAT, "tomitaAyaka", "teiMokugan", "chouMuyou", "chouShoken"]
+    ["roSekishou", "touGyokuken", "chinGyou", "giHouen", "youKokugen", "shuuRyousyou"],
+    ["shuFukukei", "souKyou", "kouU", "teiShinyou", "inKanro", "kouLi", "enSongai"],
+    ["kiUtetsu", "tsutsumiEri", "mouSeki", "chinTaku", "tomitaAyaka", "teiMokugan", "chouMuyou"],
+    ["chouShoken", "kaGyokuken", "youItukin", EMPTY_SEAT, EMPTY_SEAT, EMPTY_SEAT, EMPTY_SEAT]
   ]
 };
