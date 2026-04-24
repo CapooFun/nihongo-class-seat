@@ -374,7 +374,8 @@ const ACTIVITIES = [
       { time: "19:30", place: "高円寺駅 解散（予定）", note: "お疲れさまでした！打ち上げ希望者は駅前で🍻", image: "" }
     ],
     gallery: [],
-    signupFormUrl: "",
+    signupFormUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLScXKeY5aiYLFCt8I8Xnk4qj_LTTHWZApXUFf2YyZsH6jmntCg/viewform",
     signupGoogleFormRosterLines: [
       "4-1 姚皓严（You Kougen）",
       "4-2 黄宇（Kou U）",
