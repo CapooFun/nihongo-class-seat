@@ -28,10 +28,15 @@ const TEACHERS = {
     nameReading: "うめつ せんせい",
     avatar: `${FLUENT_3D}/1f431.webp`,
     hobby: "料理が好き"
+  },
+  kurosawa: {
+    name: "黑泽先生",
+    nameReading: "くろさわ せんせい",
+    avatar: `${FLUENT_3D}/1f43f.webp`
   }
 };
 
-const WEEKDAY_TEACHERS = ["koike", "tomitaTeacher", "tsuchiya", "ishii", "umetsu"];
+const WEEKDAY_TEACHERS = ["koike", "tomitaTeacher", "tsuchiya", "kurosawa", "umetsu"];
 
 const JAPAN_HOLIDAYS_2026 = {
   "2026-01-01": "元日",
@@ -263,15 +268,35 @@ const STUDENTS = {
     jlptLevel: "教师助教",
     avatar: `${FLUENT_3D}/1f431.webp`
   },
-  tomitaAyaka: {
-    name: "富田彩夏",
-    nameReading: "Tomita Ayaka さん",
-    realName: "富田彩夏",
-    nationality: "🇯🇵 日本",
+  chiUkin: {
+    name: "戚宇馨",
+    nameReading: "Chi Ukin さん",
+    realName: "戚宇馨",
+    nationality: "🇨🇳 中国",
     hobby: "未填写",
     message: "よろしくお願いします！",
-    jlptLevel: "教师助教",
-    avatar: `${FLUENT_3D}/1f338.webp`
+    jlptLevel: "待补充",
+    avatar: `${FLUENT_3D}/1f467.webp`
+  },
+  youKenhei: {
+    name: "余健平",
+    nameReading: "You Kenhei さん",
+    realName: "余健平",
+    nationality: "🇨🇳 中国",
+    hobby: "未填写",
+    message: "よろしくお願いします！",
+    jlptLevel: "待补充",
+    avatar: `${FLUENT_3D}/1f466.webp`
+  },
+  jdnchxna: {
+    name: "jdnchxna",
+    nameReading: "jdnchxna さん",
+    realName: "jdnchxna",
+    nationality: "🇨🇳 中国",
+    hobby: "未填写",
+    message: "よろしくお願いします！",
+    jlptLevel: "待补充",
+    avatar: `${FLUENT_3D}/1f464.webp`
   },
   kouLi: {
     name: "黄鹂",
@@ -356,9 +381,9 @@ const ACTIVITIES = [
 const SEAT_MAP = {
   colHeights: [6, 7, 7, 7],
   layout: [
-    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", EMPTY_SEAT],
-    ["chinGyou", "shuFukukei", "teiMokugan", "teiShinyou", "shuuRyousyou", "kouLi", EMPTY_SEAT],
-    ["souKyou", "touGyokuken", "inKanro", "tsutsumiEri", "chinTaku", "chouShoken", EMPTY_SEAT],
-    ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", "mouSeki", "tomitaAyaka"]
+    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", "chiUkin"],
+    ["chinGyou", "shuFukukei", "teiMokugan", "teiShinyou", "shuuRyousyou", "kouLi", "jdnchxna"],
+    ["souKyou", "touGyokuken", "inKanro", "tsutsumiEri", "chinTaku", "chouShoken", "youKenhei"],
+    ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", "mouSeki", EMPTY_SEAT]
   ]
 };
