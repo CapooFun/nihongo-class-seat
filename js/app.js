@@ -12,7 +12,7 @@
   const scheduleGrid = document.getElementById("schedule-grid");
   const seatGrid = document.getElementById("seat-grid");
   const modalRoot = document.getElementById("modal-root");
-  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v2";
+  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v3";
   const SEAT_COLS = 4;
   const SEAT_VIS_ROWS = 7;
 

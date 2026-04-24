@@ -356,9 +356,9 @@ const ACTIVITIES = [
 const SEAT_MAP = {
   colHeights: [6, 7, 7, 7],
   layout: [
-    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", "mouSeki"],
+    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", EMPTY_SEAT],
     ["chinGyou", "shuFukukei", "teiMokugan", EMPTY_SEAT, "shuuRyousyou", EMPTY_SEAT, EMPTY_SEAT],
     ["souKyou", "touGyokuken", "inKanro", "tsutsumiEri", "chinTaku", "chouShoken", EMPTY_SEAT],
-    ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", EMPTY_SEAT, "tomitaAyaka"]
+    ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", "mouSeki", "tomitaAyaka"]
   ]
 };
