@@ -1,5 +1,8 @@
 const FLUENT_3D = "https://registry.npmmirror.com/@lobehub/fluent-emoji-3d/latest/files/assets";
 
+// ↓ Google Apps Script Web App の URL（SignupWebApp.gs をデプロイ後に貼る）
+const SIGNUP_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwBV_Sfxam-BulEnNyslmAwCrINbw-3nNiaj-1tvRmx3bby_3cNkbrfY6bTdph8-_8o/exec";
+
 const TEACHERS = {
   koike: {
     name: "小池先生",

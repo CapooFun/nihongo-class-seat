@@ -58,16 +58,12 @@
       lines.length > 0
         ? `<ul class="act-signup-roster-ul">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>`
         : "";
-    const googleBtn = act.signupFormUrl
-      ? `<p class="act-signup-cta-wrap"><a class="act-btn-primary act-signup-google-cta" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームで参加を登録</a></p>`
-      : `<p class="act-signup-pending">Google フォームの「送信用リンク」を <code>js/data.js</code> の該当イベント <code>signupFormUrl</code> に貼ると、上に正式申込ボタンが表示されます。</p>`;
     return `
       <div class="act-signup-official-box">
-        <p class="act-signup-lead">クラス全体の参加人数は <strong>Google フォーム</strong> で集計します（みんな同じ回答を共有）。このページの顔アイコン一覧は<strong>このブラウザだけ</strong>に保存され、人数の正確な集計には使えません。</p>
-        ${googleBtn}
+        <p class="act-signup-lead">名前を選んで「参加登録」を押すと、クラスの集計シートに記録されます。</p>
         ${
           lines.length > 0
-            ? `<details class="act-signup-roster-details"><summary>声かけ済み・参加予定（${lines.length}名・座席）</summary>${rosterHtml}<p class="act-signup-roster-note">フォームの選択肢にコピーする場合は、プロジェクト内 <code>CREATE_GOOGLE_FORM.txt</code> も参照してください。</p></details>`
+            ? `<details class="act-signup-roster-details"><summary>声かけ済み・参加予定（${lines.length}名・座席）</summary>${rosterHtml}</details>`
             : ""
         }
       </div>
@@ -107,20 +103,12 @@
     const alreadySigned = isSelfSignedUp(signups);
 
     if (alreadySigned) {
-      actionsEl.innerHTML = `
-        <span class="act-btn-signed">✓ このブラウザにはメモ済み</span>
-        ${act.signupFormUrl ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームを開く</a>` : ""}
-      `;
+      actionsEl.innerHTML = `<span class="act-btn-signed">✓ 参加登録済み（このブラウザ）</span>`;
       return;
     }
 
-    const formLink = act.signupFormUrl
-      ? `<a class="act-btn-form" href="${esc(act.signupFormUrl)}" target="_blank" rel="noopener">Googleフォームを開く</a>`
-      : "";
-
     actionsEl.innerHTML = `
-      <button class="act-btn-secondary" type="button" id="signup-btn">📌 この端末だけにメモ（任意・参考）</button>
-      ${formLink}
+      <button class="act-btn-primary" type="button" id="signup-btn">参加登録する</button>
     `;
 
     document.getElementById("signup-btn").addEventListener("click", () => {
@@ -144,7 +132,7 @@
       <div class="signup-modal-card">
         <p class="signup-modal-title">参加申し込み</p>
         <p class="signup-modal-sub">${esc(act.title)} に参加します</p>
-        <p class="signup-modal-hint">※ ここはこの端末にだけ保存されます。クラス全体の正式な参加登録は Google フォームを使ってください。</p>
+        <p class="signup-modal-hint">※ 名前はこの端末にも保存されます。「申し込む」を押すとクラスの集計シートにも記録されます。</p>
         <label class="signup-select-label" for="signup-select">あなたの名前を選んでください</label>
         <select class="signup-select" id="signup-select">
           <option value="">── 選んでください ──</option>
@@ -186,6 +174,22 @@
             "保存に失敗しました（ストレージが無効・容量不足など）。\nプライベート／シークレットモードを解除するか、別ブラウザでお試しください。\n\n未能写入本机存储，请关闭无痕模式或更换浏览器后再报名。"
           );
           return;
+        }
+
+        // 集計シートへ送信（fire-and-forget）
+        if (typeof SIGNUP_WEBAPP_URL === "string" && SIGNUP_WEBAPP_URL) {
+          fetch(SIGNUP_WEBAPP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              activityId:    act.id,
+              activityTitle: act.title,
+              studentName:   entry.name,
+              studentKey:    entry.key,
+              timestamp:     entry.signedAt
+            })
+          }).catch(() => {});
         }
       }
 
