@@ -57,6 +57,9 @@ const JAPAN_HOLIDAYS_2026 = {
 const NO_SEAT = "__NO_SEAT__";
 const EMPTY_SEAT = "__EMPTY__";
 
+/** クラス活動の参加申し込み一覧（閲覧者のブラウザ localStorage のみ）。key = 接頭辞 + ACTIVITIES[].id */
+const ACTIVITY_SIGNUPS_STORAGE_PREFIX = "nihongo-activity-signups-";
+
 const STUDENTS = {
   shuFukukei: {
     name: "朱福庆",
@@ -353,9 +356,9 @@ const ACTIVITIES = [
 const SEAT_MAP = {
   colHeights: [6, 7, 7, 7],
   layout: [
-    ["roSekishou", "touGyokuken", "chinGyou", "giHouen", "youKokugen", "shuuRyousyou"],
-    ["shuFukukei", "souKyou", "kouU", "teiShinyou", "inKanro", "kouLi", "enSongai"],
-    ["kiUtetsu", "tsutsumiEri", "mouSeki", "chinTaku", "tomitaAyaka", "teiMokugan", "chouMuyou"],
-    ["chouShoken", "kaGyokuken", "youItukin", EMPTY_SEAT, EMPTY_SEAT, EMPTY_SEAT, EMPTY_SEAT]
+    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", "mouSeki"],
+    ["chinGyou", "shuFukukei", "teiMokugan", EMPTY_SEAT, "shuuRyousyou", EMPTY_SEAT, EMPTY_SEAT],
+    ["souKyou", "touGyokuken", "inKanro", "tsutsumiEri", "chinTaku", "chouShoken", EMPTY_SEAT],
+    ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", EMPTY_SEAT, "tomitaAyaka"]
   ]
 };

@@ -653,6 +653,26 @@ h2 {
   font-weight: 700;
 }
 
+.schedule-teacher .text-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.schedule-teacher .teacher-schedule-line1 {
+  display: block;
+}
+
+.schedule-teacher .teacher-schedule-line2 {
+  display: block;
+  font-size: 0.88em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .schedule-note,
 .schedule-period {
   color: var(--text-secondary);

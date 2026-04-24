@@ -16,13 +16,17 @@
   }
 
   function storageKey(id) {
-    return "nihongo-activity-signups-" + id;
+    return ACTIVITY_SIGNUPS_STORAGE_PREFIX + id;
   }
 
   function loadSignups(id) {
     try {
       const raw = localStorage.getItem(storageKey(id));
-      return raw ? JSON.parse(raw) : [];
+      if (!raw) {
+        return [];
+      }
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }
@@ -30,8 +34,13 @@
 
   function saveSignups(id, list) {
     try {
-      localStorage.setItem(storageKey(id), JSON.stringify(list));
-    } catch (e) {}
+      const json = JSON.stringify(list);
+      localStorage.setItem(storageKey(id), json);
+      const roundTrip = localStorage.getItem(storageKey(id));
+      return roundTrip === json;
+    } catch (e) {
+      return false;
+    }
   }
 
   function formatDateRange(dateStr, dateEndStr) {
@@ -141,15 +150,27 @@
       const alreadyIn = signups.some((s) => s.key === selectedKey);
       if (!alreadyIn) {
         const student = STUDENTS[selectedKey];
-        signups.push({
+        const entry = {
           key: selectedKey,
           name: student ? student.name : selectedKey,
           signedAt: new Date().toISOString()
-        });
-        saveSignups(act.id, signups);
+        };
+        signups.push(entry);
+        const saved = saveSignups(act.id, signups);
+        if (!saved) {
+          signups.pop();
+          window.alert(
+            "保存に失敗しました（ストレージが無効・容量不足など）。\nプライベート／シークレットモードを解除するか、別ブラウザでお試しください。\n\n未能写入本机存储，请关闭无痕模式或更换浏览器后再报名。"
+          );
+          return;
+        }
       }
 
-      try { localStorage.setItem("nihongo-my-student-key", selectedKey); } catch (e) {}
+      try {
+        localStorage.setItem("nihongo-my-student-key", selectedKey);
+      } catch (e) {
+        // 「自分」表示用のみ。本体の参加リストは上で保存済み
+      }
 
       overlay.remove();
       renderSignupList(act, signups, listEl);

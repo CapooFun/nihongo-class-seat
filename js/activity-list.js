@@ -22,8 +22,12 @@
 
   function getSignupCount(id) {
     try {
-      const raw = localStorage.getItem("nihongo-activity-signups-" + id);
-      return raw ? JSON.parse(raw).length : 0;
+      const raw = localStorage.getItem(ACTIVITY_SIGNUPS_STORAGE_PREFIX + id);
+      if (!raw) {
+        return 0;
+      }
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed.length : 0;
     } catch (e) {
       return 0;
     }

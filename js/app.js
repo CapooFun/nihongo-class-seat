@@ -12,7 +12,7 @@
   const scheduleGrid = document.getElementById("schedule-grid");
   const seatGrid = document.getElementById("seat-grid");
   const modalRoot = document.getElementById("modal-root");
-  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v1";
+  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v2";
   const SEAT_COLS = 4;
   const SEAT_VIS_ROWS = 7;
 
@@ -151,7 +151,7 @@
 
     const kanaHtml = kana ? `（${escapeHtml(kana)}）` : "";
 
-    return `${escapeHtml(surname)}${kanaHtml}${escapeHtml("先生")}`;
+    return `<span class="teacher-schedule-line1">${escapeHtml(surname)}${kanaHtml}</span><span class="teacher-schedule-line2">${escapeHtml("先生")}</span>`;
   }
 
   function escapeHtml(value) {
