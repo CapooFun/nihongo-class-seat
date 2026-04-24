@@ -1,15 +1,8 @@
 /**
- * 在你自己的 Google 账号里「一键」生成奥多摩参加报名表（只运行一次即可）。
+ * 奥多摩参加用 Google フォームをコードで1回だけ生成する。
+ * 操作手順はリポジトリ直下の CREATE_GOOGLE_FORM.txt（手把手）に合わせてある。
  *
- * 用法：
- * 1. 打开 https://script.google.com/home → 新建项目
- * 2. 删除默认的 myFunction，把本文件全部粘贴进去 → 保存
- * 3. 下拉选择 createOkutamaSignupForm → 运行 → 按提示完成授权
- * 4. 菜单「执行」→「查看」→「日志」，复制里面的表单 URL
- * 5. 把 URL 写入本仓库 js/data.js 里活动 okutama-2026-04-30 的 signupFormUrl
- *
- * 说明：我不能替你用 Google 登录；但这段脚本等于「替你点完新建表单和选项」。
- * 别人打开该 URL 提交后，回答会记在 Google 表单后台（自动），无需自建服务器。
+ * 注意：部署・トリガーは不要。保存 → 関数 createOkutamaSignupForm を選ぶ → 実行 → 実行記録のログに出る URL を data.js の signupFormUrl へ。
  */
 function createOkutamaSignupForm() {
   var choices = [
