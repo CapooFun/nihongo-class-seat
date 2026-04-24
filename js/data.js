@@ -59,6 +59,7 @@ const JAPAN_HOLIDAYS_2026 = {
   "2026-11-23": "勤労感謝の日"
 };
 
+/** 物理席なし（グリッド上は 1-7 と同様、カードを出さない） */
 const NO_SEAT = "__NO_SEAT__";
 const EMPTY_SEAT = "__EMPTY__";
 
@@ -381,7 +382,7 @@ const ACTIVITIES = [
 const SEAT_MAP = {
   colHeights: [6, 7, 7, 7],
   layout: [
-    ["roSekishou", "kiUtetsu", "youItukin", EMPTY_SEAT, "giHouen", "chiUkin"],
+    ["roSekishou", "kiUtetsu", "youItukin", NO_SEAT, "giHouen", "chiUkin"],
     ["chinGyou", "shuFukukei", "teiMokugan", "teiShinyou", "shuuRyousyou", "kouLi", "jdnchxna"],
     ["souKyou", "touGyokuken", "inKanro", "tsutsumiEri", "chinTaku", "chouShoken", "youKenhei"],
     ["youKokugen", "kouU", "enSongai", "kaGyokuken", "chouMuyou", "mouSeki", EMPTY_SEAT]

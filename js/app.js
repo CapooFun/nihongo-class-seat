@@ -12,7 +12,7 @@
   const scheduleGrid = document.getElementById("schedule-grid");
   const seatGrid = document.getElementById("seat-grid");
   const modalRoot = document.getElementById("modal-root");
-  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v5";
+  const SEAT_STORAGE_KEY = "nihongo-class-seat-layout-v6";
   const SEAT_COLS = 4;
   const SEAT_VIS_ROWS = 7;
 
@@ -245,6 +245,9 @@
     if (isGapSeat(col, row) || col < 0 || col >= SEAT_COLS) {
       return;
     }
+    if (getSeatValue(layout, col, row) === NO_SEAT) {
+      return;
+    }
     if (row < 0 || row >= layout[col].length) {
       return;
     }
@@ -269,6 +272,10 @@
     const seatLabel = `${colLabel}-${rowLabel}`;
 
     if (isGap) {
+      return '<div class="seat-gap" aria-hidden="true"></div>';
+    }
+
+    if (key === NO_SEAT) {
       return '<div class="seat-gap" aria-hidden="true"></div>';
     }
 
@@ -594,6 +601,9 @@
     }
     const a = getSeatValue(currentSeatLayout, colA, rowA);
     const b = getSeatValue(currentSeatLayout, colB, rowB);
+    if (a === NO_SEAT || b === NO_SEAT) {
+      return;
+    }
     setSeatValue(currentSeatLayout, colA, rowA, b);
     setSeatValue(currentSeatLayout, colB, rowB, a);
     persistLayout();
