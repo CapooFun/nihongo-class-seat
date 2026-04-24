@@ -53,29 +53,36 @@
   }
 
   function renderSignupOfficialLead(act) {
-    const lines = Array.isArray(act.signupGoogleFormRosterLines) ? act.signupGoogleFormRosterLines : [];
-    const rosterHtml =
-      lines.length > 0
-        ? `<ul class="act-signup-roster-ul">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>`
-        : "";
+    const keys = Array.isArray(act.confirmedAttendeeKeys) ? act.confirmedAttendeeKeys : [];
+    const cardsHtml = keys.map((key) => {
+      const student = STUDENTS[key];
+      if (!student) return "";
+      return `
+        <div class="act-signup-person">
+          ${student.avatar
+            ? `<img class="act-signup-avatar" src="${esc(student.avatar)}" alt="" loading="lazy">`
+            : `<span class="act-signup-avatar" style="background:rgba(124,199,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">👤</span>`
+          }
+          <span class="act-signup-name">${esc(student.name)}</span>
+        </div>
+      `;
+    }).join("");
     return `
       <div class="act-signup-official-box">
         <p class="act-signup-lead">名前を選んで「参加登録」を押すと、クラスの集計シートに記録されます。</p>
-        ${
-          lines.length > 0
-            ? `<details class="act-signup-roster-details"><summary>声かけ済み・参加予定（${lines.length}名・座席）</summary>${rosterHtml}</details>`
-            : ""
-        }
+        ${keys.length > 0 ? `<div class="act-signup-list">${cardsHtml}</div>` : ""}
       </div>
     `;
   }
 
   function renderSignupList(act, signups, container) {
-    if (signups.length === 0) {
-      container.innerHTML = `<p class="act-signup-empty">まだ参加者がいません。最初に申し込もう！</p>`;
+    const confirmed = new Set(Array.isArray(act.confirmedAttendeeKeys) ? act.confirmedAttendeeKeys : []);
+    const extra = signups.filter((s) => !confirmed.has(s.key));
+    if (extra.length === 0) {
+      container.innerHTML = "";
       return;
     }
-    container.innerHTML = signups.map((s) => {
+    container.innerHTML = extra.map((s) => {
       const student = STUDENTS[s.key];
       const avatarSrc = student ? student.avatar : "";
       const displayName = student ? student.name : esc(s.name);
