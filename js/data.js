@@ -374,8 +374,8 @@ const ACTIVITIES = [
       { time: "19:30", place: "高円寺駅 解散（予定）", note: "お疲れさまでした！打ち上げ希望者は駅前で🍻", image: "" }
     ],
     gallery: [],
-    signupFormUrl:
-      "https://docs.google.com/forms/d/e/1FAIpQLScXKeY5aiYLFCt8I8Xnk4qj_LTTHWZApXUFf2YyZsH6jmntCg/viewform",
+    // 以下は「回答用」URL（…/viewform）。誤字だと 404 になるので、Google フォーム「送信」から毎回コピー推奨。
+    signupFormUrl: "",
     signupGoogleFormRosterLines: [
       "4-1 姚皓严（You Kougen）",
       "4-2 黄宇（Kou U）",
